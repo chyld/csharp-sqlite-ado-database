@@ -41,5 +41,37 @@ namespace alpha
       using var reader = command.ExecuteReader();
       Console.WriteLine($"Has Rows: {reader.HasRows}");
     }
+    public static void Update()
+    {
+      using var connection = new SqliteConnection("Data Source=./data/university.db");
+      connection.Open();
+      var command = connection.CreateCommand();
+      command.CommandText =
+      @"
+        UPDATE students
+        SET name = $newname, age = $age
+        WHERE name = $oldname;
+      ";
+      command.Parameters.AddWithValue("$oldname", "Bob");
+      command.Parameters.AddWithValue("$newname", "Edgar");
+      command.Parameters.AddWithValue("$age", "29");
+      using var reader = command.ExecuteReader();
+      Console.WriteLine($"Has Rows: {reader.HasRows}");
+    }
+    public static void Delete()
+    {
+      using var connection = new SqliteConnection("Data Source=./data/university.db");
+      connection.Open();
+      var command = connection.CreateCommand();
+      command.CommandText =
+      @"
+        DELETE
+        FROM students
+        WHERE name = $name;
+      ";
+      command.Parameters.AddWithValue("$name", "Sara");
+      using var reader = command.ExecuteReader();
+      Console.WriteLine($"Has Rows: {reader.HasRows}");
+    }
   }
 }

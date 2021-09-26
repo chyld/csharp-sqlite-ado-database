@@ -4,8 +4,10 @@
   {
     public static void Main(string[] args)
     {
-      Sql.Query();
       Sql.Insert();
+      Sql.Update();
+      Sql.Delete();
+      Sql.Query();
     }
   }
 }
